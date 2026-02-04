@@ -1,0 +1,2 @@
+docs/assets/*.png filter=lfs diff=lfs merge=lfs -text
+docs/assets/*.webp filter=lfs diff=lfs merge=lfs -text

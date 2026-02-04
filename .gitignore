@@ -1,0 +1,48 @@
+<<<<<<< HEAD
+# Dependencies
+node_modules
+.local
+
+# Build
+dist
+server/public
+
+# Environment
+.env
+.env.*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor/System
+.DS_Store
+.replit
+replit.md
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vite
+vite.config.ts.*
+
+# Temporary files
+tmp
+temp
+*.tar.gz
+=======
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+.env
+>>>>>>> ccc9874224dc04e7e43a10439c6a4f3e3cf4fce6
