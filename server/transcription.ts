@@ -64,7 +64,7 @@ ${textToReview}`;
 
     try {
       const result = await ai.models.generateContent({
-        model: "gemini-3-flash",
+        model: "gemini-3-flash-preview",
         contents: [{ text: prompt }],
         config: {
           responseMimeType: "application/json",
@@ -193,7 +193,7 @@ Each segment must have: id (number), startTime (string HH:MM:SS,mmm), endTime (s
 Context to help with terminology: ${userContext || "General speech"}`;
 
     const result = await ai.models.generateContent({
-      model: "gemini-3-flash",
+      model: "gemini-3-flash-preview",
       contents: [
         { inlineData: { mimeType: processMimeType, data: audioBase64 } },
         { text: prompt }

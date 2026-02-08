@@ -44,5 +44,5 @@ We have detailed guides to help you get the most out of the application:
 ## Tech Stack
 -   **Frontend**: React, TanStack Query, ShadCN UI, Tailwind CSS.
 -   **Backend**: Node.js (Express).
--   **AI/ML**: Google Gemini 3 API (gemini-3-flash).
+-   **AI/ML**: Google Gemini 3 API (gemini-3-flash-preview).
 
