@@ -226,10 +226,10 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        <section className="py-20 md:py-32">
+        <section className="pt-10 pb-12 md:pt-16 md:pb-20">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              Generate & Tidy-up <span className="text-primary">SRT Subtitles</span>
+              Generate and Tidy-up <span className="text-primary">SRT Subtitles</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               Generate and tidy-up subtitle (SRT) files for MP3 and MP4 files of upto 25 MB.
@@ -241,14 +241,20 @@ export default function Home() {
                 Get Started
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
-              <Button size="lg" variant="outline" data-testid="button-learn-more">
-                Learn More
+              <Button size="lg" variant="outline" data-testid="button-learn-more" asChild>
+                <a
+                  href="https://github.com/mugdhav/transcript_reviewer#readme"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Learn More
+                </a>
               </Button>
             </div>
           </div>
         </section>
 
-        <section className="py-20 bg-muted/30">
+        <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               How It Works

@@ -58,6 +58,7 @@ Instructions:
 2. Use the provided Context to identify subject matter, names, and terminology.
 3. Check for homophones that don't fit the sentence context.
 4. Flag corrections as "autoFix": true only if you are 100% confident.
+5. If "autoFix" is true, provide a concise description of the specific change made in the "reason" field (e.g., "Replaced ulama with Ollama", "Added comma (,)").
 
 Segments:
 ${textToReview}`;

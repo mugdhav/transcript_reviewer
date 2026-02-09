@@ -53,3 +53,15 @@ Once the deployment completes, `gcloud` will provide a URL (e.g., `https://trans
 -   **Check Logs**: Use `gcloud logs read --service transcript-reviewer` to debug startup issues.
 -   **API Key Errors**: Ensure the `GOOGLE_API_KEY` is correctly set in the environment variables section of the Cloud Run console.
 -   **Memory Limits**: Large video files might require increasing the memory limit of your Cloud Run instance (default is 512MB, 2GB recommended).
+
+## Google AI Studio Showcase
+
+To showcase your application and share it with the Gemini community:
+
+1.  **Deploy to Cloud Run**: Follow the steps above to get a public `https://...` URL.
+2.  **Ensure "Learn More" is Updated**: The "Learn More" button in this app currently links to the GitHub repository. Ensure your latest changes are pushed to GitHub.
+3.  **Share the Project**:
+    *   Go to [Google AI Studio](https://aistudio.google.com/).
+    *   Use the "Share" button on your prompts/tuned models to link to your live demo if you are building a specific collection.
+    *   For the full application showcase, share your Cloud Run URL on forums, social media, or with the Google Gemini community.
+4.  **Security Note**: Never include your `GOOGLE_API_KEY` in your code or frontend. The Cloud Run deployment strategy (Step 3) ensures your key stays on the server-side, protected from end-users.

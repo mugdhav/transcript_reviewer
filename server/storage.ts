@@ -106,6 +106,7 @@ export class MemStorage implements IStorage {
     // Update the anomaly
     anomaly.resolved = true;
     anomaly.userCorrection = correction;
+    anomaly.context = `Replaced "${anomaly.flaggedText}" with "${correction}"`;
 
     // Update the segment text
     const segment = job.segments.find(s => s.id === anomaly.segmentId);
@@ -127,6 +128,7 @@ export class MemStorage implements IStorage {
       if (!anomaly.resolved && anomaly.flaggedText.toLowerCase() === lowerFlaggedText) {
         anomaly.resolved = true;
         anomaly.userCorrection = correction;
+        anomaly.context = `Replaced "${anomaly.flaggedText}" with "${correction}"`;
         correctionCount++;
 
         // Update the segment text
