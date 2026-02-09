@@ -64,6 +64,7 @@ export const transcriptionJobSchema = z.object({
   createdAt: z.string(),
   completedAt: z.string().optional(),
   errorMessage: z.string().optional(),
+  statusMessage: z.string().optional(),
 });
 
 export type TranscriptionJob = z.infer<typeof transcriptionJobSchema>;

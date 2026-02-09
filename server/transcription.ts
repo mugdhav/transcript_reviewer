@@ -55,10 +55,11 @@ Context: ${userContext || "General speech"}
 
 Instructions:
 1. Identify any words or phrases that are used incorrectly in the given context.
-2. Use the provided Context to identify subject matter, names, and terminology.
-3. Check for homophones that don't fit the sentence context.
-4. Flag corrections as "autoFix": true only if you are 100% confident.
-5. If "autoFix" is true, provide a concise description of the specific change made in the "reason" field (e.g., "Replaced ulama with Ollama", "Added comma (,)").
+2. Do NOT make stylistic changes. Only fix objective grammatical, spelling, or context errors.
+3. Use the provided Context to identify subject matter, names, and terminology.
+4. Check for homophones that don't fit the sentence context.
+5. Flag corrections as "autoFix": true only if you are 100% confident.
+6. If "autoFix" is true, provide a description in the "reason" field using this EXACT format: "Original: [original_text] -> Changed to: [new_text] ([brief_explanation])".
 
 Segments:
 ${textToReview}`;
@@ -165,7 +166,7 @@ export async function transcribeAudio(
   filePath: string,
   mimeType: string,
   userContext?: string,
-  onProgress?: (status: string, progress: number) => void
+  onProgress?: (status: string, progress: number, message?: string) => void
 ): Promise<{ segments: SrtSegment[]; anomalies: Anomaly[] }> {
   try {
     let processPath = filePath;
@@ -193,29 +194,58 @@ export async function transcribeAudio(
 Each segment must have: id (number), startTime (string HH:MM:SS,mmm), endTime (string HH:MM:SS,mmm), and text (string).
 Context to help with terminology: ${userContext || "General speech"}`;
 
-    const result = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: [
-        { inlineData: { mimeType: processMimeType, data: audioBase64 } },
-        { text: prompt }
-      ],
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              id: { type: Type.NUMBER },
-              startTime: { type: Type.STRING },
-              endTime: { type: Type.STRING },
-              text: { type: Type.STRING }
-            },
-            required: ["id", "startTime", "endTime", "text"]
+    let result;
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    while (attempts < maxAttempts) {
+      try {
+        result = await ai.models.generateContent({
+          model: "gemini-3-flash-preview",
+          contents: [
+            { inlineData: { mimeType: processMimeType, data: audioBase64 } },
+            { text: prompt }
+          ],
+          config: {
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.OBJECT,
+                properties: {
+                  id: { type: Type.NUMBER },
+                  startTime: { type: Type.STRING },
+                  endTime: { type: Type.STRING },
+                  text: { type: Type.STRING }
+                },
+                required: ["id", "startTime", "endTime", "text"]
+              }
+            }
           }
+        });
+        break; // Success!
+      } catch (error: any) {
+        attempts++;
+        const isRetryable = error.status === 503 ||
+          (error.message && error.message.includes("fetch failed")) ||
+          (error.name === "TypeError" && error.message && error.message.includes("fetch"));
+
+        if (isRetryable && attempts < maxAttempts) {
+          const waitTime = 10;
+          for (let i = waitTime; i > 0; i--) {
+            onProgress?.("transcribing", 30, `Network/Model busy. Retrying in ${i}s...`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+          onProgress?.("transcribing", 30, `Retrying attempt ${attempts + 1}/${maxAttempts}...`);
+        } else {
+          // If not retryable or max attempts reached, rethrow
+          if (attempts >= maxAttempts && isRetryable) {
+            throw new Error("Sorry, we couldn't process your file due to network or model unavailability. Please try again later.");
+          }
+          throw error;
         }
       }
-    });
+    }
 
     // Cleanup extraction temp file
     if (tempAudioPath) {
@@ -225,6 +255,8 @@ Context to help with terminology: ${userContext || "General speech"}`;
     }
 
     onProgress?.("transcribing", 70);
+
+    if (!result) throw new Error("No transcription result received");
 
     const segments: SrtSegment[] = JSON.parse(result.text as string);
 

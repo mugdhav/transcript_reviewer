@@ -307,14 +307,14 @@ async function processTranscription(
       filePath,
       mimeType,
       userContext,
-      async (status, progress) => {
+      async (status, progress, message) => {
         const statusMap: Record<string, "processing" | "transcribing" | "analyzing" | "completed"> = {
           processing: "processing",
           transcribing: "transcribing",
           analyzing: "analyzing",
           completed: "completed",
         };
-        await storage.updateJobStatus(jobId, statusMap[status] || "processing", progress);
+        await storage.updateJobStatus(jobId, statusMap[status] || "processing", progress, message);
       }
     );
 

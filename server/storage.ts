@@ -10,7 +10,7 @@ import type {
 export interface IStorage {
   createJob(fileName: string, fileSize: number, fileType: string, userContext?: string): Promise<TranscriptionJob>;
   getJob(id: string): Promise<TranscriptionJob | undefined>;
-  updateJobStatus(id: string, status: JobStatus, progress?: number): Promise<void>;
+  updateJobStatus(id: string, status: JobStatus, progress?: number, statusMessage?: string): Promise<void>;
   updateJobError(id: string, errorMessage: string): Promise<void>;
   setJobSegments(id: string, segments: SrtSegment[]): Promise<void>;
   setJobAnomalies(id: string, anomalies: Anomaly[]): Promise<void>;
@@ -57,12 +57,18 @@ export class MemStorage implements IStorage {
     return this.jobs.get(id);
   }
 
-  async updateJobStatus(id: string, status: JobStatus, progress?: number): Promise<void> {
+  async updateJobStatus(id: string, status: JobStatus, progress?: number, statusMessage?: string): Promise<void> {
     const job = this.jobs.get(id);
     if (job) {
       job.status = status;
       if (progress !== undefined) {
         job.progress = progress;
+      }
+      if (statusMessage !== undefined) {
+        job.statusMessage = statusMessage;
+      } else if (status !== "failed") {
+        // Clear status message if not explicitly set and not failed
+        job.statusMessage = undefined;
       }
       if (status === "completed") {
         job.completedAt = new Date().toISOString();

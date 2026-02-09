@@ -1,7 +1,9 @@
-import { FileAudio, FileVideo, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
+import { FileAudio, FileVideo, CheckCircle2, Loader2, AlertCircle, Home } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 import type { TranscriptionJob, JobStatus } from "@shared/schema";
 
 interface TranscriptionProgressProps {
@@ -108,9 +110,25 @@ export function TranscriptionProgress({ job }: TranscriptionProgressProps) {
           })}
         </div>
 
+        {job.statusMessage && !job.errorMessage && (
+          <div className="text-sm text-center text-amber-600 dark:text-amber-400 font-medium animate-pulse">
+            {job.statusMessage}
+          </div>
+        )}
+
         {job.status === "failed" && job.errorMessage && (
-          <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm" data-testid="text-job-error">
-            {job.errorMessage}
+          <div className="space-y-4">
+            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm" data-testid="text-job-error">
+              {job.errorMessage}
+            </div>
+            <div className="flex justify-center">
+              <Button asChild variant="outline" size="sm">
+                <a href="/">
+                  <Home className="mr-2 h-4 w-4" />
+                  Return to Home
+                </a>
+              </Button>
+            </div>
           </div>
         )}
 
