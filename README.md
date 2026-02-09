@@ -10,6 +10,8 @@ app_port: 8080
 
 # Gemini Subtitle Generator & Reviewer
 
+**Live App: [https://transcript-reviewer-543444238950.us-central1.run.app](https://transcript-reviewer-543444238950.us-central1.run.app)**
+
 A powerful, context-aware subtitle generation and cleaning tool. It combines industry-standard transcription with the intelligent Google Gemini 3 LLM-based review system to capture names, technical jargon, and grammar that standard tools miss.
 
 ## 🚀 Features

@@ -43,6 +43,11 @@ gcloud run deploy transcript-reviewer \
   --set-env-vars GOOGLE_API_KEY=your_api_key_here
 ```
 
+**Alternative (Single Line - easiest for pasting):**
+```bash
+gcloud run deploy transcript-reviewer --image gcr.io/[PROJECT_ID]/transcript-reviewer --platform managed --region us-central1 --allow-unauthenticated --set-env-vars GOOGLE_API_KEY=your_api_key_here
+```
+
 > [!IMPORTANT]
 > **Port Note**: The application is configured to expose port **8080**, which is the default for Cloud Run. Your Dockerfile `EXPOSE` and `PORT` environment variables should reflect this.
 

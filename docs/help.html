@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Gemini Subtitle Generator & Reviewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #f9fafb;
+            --text: #111827;
+            --text-light: #4b5563;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .live-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .live-link:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-item strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+                padding: 20px;
+            }
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Gemini Subtitle Generator & Reviewer</h1>
+        <a href="https://transcript-reviewer-543444238950.us-central1.run.app" class="live-link">Open Live Application</a>
+
+        <p>A powerful, context-aware subtitle generation and cleaning tool. It combines industry-standard transcription with the intelligent Google Gemini 3 LLM-based review system to capture names, technical jargon, and grammar that standard tools miss.</p>
+
+        <h2>🚀 Features</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <strong>Gemini 3 Powered</strong>
+                High-speed, multimodal transcription and intelligent correction.
+            </div>
+            <div class="feature-item">
+                <strong>Context-Aware AI</strong>
+                Provides subject matter and speaker names for highly accurate results.
+            </div>
+            <div class="feature-item">
+                <strong>Smart Auto-Tidy</strong>
+                Automatically fixes high-confidence errors (typos, homophones) instantly.
+            </div>
+            <div class="feature-item">
+                <strong>Interactive Review</strong>
+                Synced media player, click-to-seek, and effortless manual editing.
+            </div>
+        </div>
+
+        <h2>📚 Documentation</h2>
+        <ul>
+            <li><strong>User Guide</strong>: A complete walkthrough of the interface.</li>
+            <li><strong>AI & Context Features</strong>: Learn how to get perfect results.</li>
+            <li><strong>Deployment Guide</strong>: Hosting on Google Cloud Run.</li>
+        </ul>
+
+        <h2>🛠️ Quick Start</h2>
+        <ol>
+            <li><strong>Upload</strong>: Drag & drop your MP3/MP4 file and provide a context description.</li>
+            <li><strong>Review</strong>: Use the interface to accept AI suggestions or make manual edits.</li>
+            <li><strong>Export</strong>: Download your finished <code>.srt</code> file.</li>
+        </ol>
+
+        <h2>Tech Stack</h2>
+        <ul>
+            <li><strong>Frontend</strong>: React, TanStack Query, ShadCN UI, Tailwind CSS.</li>
+            <li><strong>Backend</strong>: Node.js (Express).</li>
+            <li><strong>AI/ML</strong>: Google Gemini 3 API.</li>
+        </ul>
+
+        <div class="footer">
+            &copy; 2026 Gemini Subtitle Reviewer. Powered by Google Gemini.
+        </div>
+    </div>
+</body>
+</html>

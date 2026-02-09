@@ -6,6 +6,7 @@ import * as path from "path";
 import { storage } from "./storage";
 import { transcribeAudio, generateSrtContent } from "./transcription";
 import { correctionRequestSchema } from "@shared/schema";
+import { cleanupJob, startCleanupSchedule } from "./cleanup";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 
@@ -39,6 +40,12 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+
+  // Start the cleanup schedule
+  startCleanupSchedule();
+
+  // Serve documentation
+  app.use("/docs", (await import("express")).default.static(path.resolve(process.cwd(), "docs")));
 
   // Upload file and start transcription
   app.post("/api/upload", upload.single("file"), async (req, res) => {
@@ -287,6 +294,18 @@ export async function registerRoutes(
         success: false,
         message: "Failed to export SRT",
       });
+    }
+  });
+
+  // Cleanup Job File
+  app.post("/api/cleanup/:id", async (req, res) => {
+    try {
+      const jobId = req.params.id;
+      await cleanupJob(jobId);
+      res.json({ success: true, message: "Cleanup initiated" });
+    } catch (error) {
+      console.error("Cleanup error:", error);
+      res.status(500).json({ success: false, message: "Cleanup failed" });
     }
   });
 

@@ -26,6 +26,17 @@ export default function Home() {
   const mediaPlayerRef = useRef<HTMLMediaElement>(null);
   const { toast } = useToast();
 
+  // Cleanup effect for window unload
+  useState(() => {
+    const handleBeforeUnload = () => {
+      if (currentJobId) {
+        navigator.sendBeacon(`/api/cleanup/${currentJobId}`);
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  });
+
   const { data: response, refetch: refetchJob } = useQuery<ApiResponse<TranscriptionJob>>({
     queryKey: ["/api/jobs", currentJobId],
     enabled: !!currentJobId && view === "processing",
@@ -135,6 +146,24 @@ export default function Home() {
     segmentUpdateMutation.mutate({ segmentId, text });
   }, [segmentUpdateMutation]);
 
+  const cleanupMutation = useMutation({
+    mutationFn: async (jobId: string) => {
+      await apiRequest("POST", `/api/cleanup/${jobId}`);
+    },
+    onSuccess: () => {
+      setCurrentJobId(null);
+      setView("landing");
+    }
+  });
+
+  const handleNewFile = useCallback(() => {
+    if (currentJobId) {
+      cleanupMutation.mutate(currentJobId);
+    } else {
+      setView("landing");
+    }
+  }, [currentJobId, cleanupMutation]);
+
   const handleUpload = useCallback((file: File, context: string) => {
     setUploadProgress(10);
     const interval = setInterval(() => {
@@ -243,7 +272,7 @@ export default function Home() {
               </Button>
               <Button size="lg" variant="outline" data-testid="button-learn-more" asChild>
                 <a
-                  href="https://github.com/mugdhav/transcript_reviewer#readme"
+                  href="/docs/help.html"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -337,7 +366,7 @@ export default function Home() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Button variant="ghost" onClick={() => setView("landing")} data-testid="button-back-home">
+            <Button variant="ghost" onClick={handleNewFile} data-testid="button-back-home">
               <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
                 <FileAudio className="h-4 w-4 text-primary-foreground" />
               </div>
@@ -401,7 +430,7 @@ export default function Home() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Button variant="ghost" onClick={() => setView("landing")} data-testid="button-back-home-review">
+            <Button variant="ghost" onClick={handleNewFile} data-testid="button-back-home-review">
               <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
                 <FileAudio className="h-4 w-4 text-primary-foreground" />
               </div>
@@ -409,7 +438,7 @@ export default function Home() {
             </Button>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={() => setView("upload")} data-testid="button-new-file">
+            <Button variant="outline" onClick={handleNewFile} data-testid="button-new-file">
               New File
             </Button>
             <ThemeToggle />
