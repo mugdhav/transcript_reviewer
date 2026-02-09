@@ -4,9 +4,9 @@ The **MV Subtitle Generator** isn't just a transcriber; it's a context-aware edi
 
 ## The Problem with Traditional Transcription
 Standard Speech-to-Text engines often struggle with:
-- **Homophones**: Words that sound the same but mean different things (e.g., *pair* vs *pear*, *date a* vs *data*).
-- **Specialized Jargon**: Technical terms often get transcribed as common words.
-- **Names**: Unique names are often misspelled.
+- **Homophones**: Words that sound the same but mean different things (for example, *pair* vs *pear*, *date a* vs *data*).
+- **Specialized Jargon**: Technical terms often get transcribed as common words (for example, *JSON* vs *Jason*, *SQL* vs *sequel*, etc.). 
+- **Names**: Unique names are often misspelled (for example, *John* vs *Jon*, *Rahel* vs *Rachel*, etc.).
 
 ## Our Solution: Context Injection
 
