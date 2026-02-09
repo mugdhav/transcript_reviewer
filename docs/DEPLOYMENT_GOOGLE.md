@@ -1,11 +1,13 @@
-# Deployment Guide: Google Cloud Run
+# Project Owner's Deployment Guide: Google Cloud Run
 
-This guide explains how to deploy the Gemini Subtitle Generator to Google Cloud Run for hosting and showcasing.
+This guide explains how you, the project owner, can securely deploy the Gemini Subtitle Generator from your local system to Google Cloud Run.
 
 ## Prerequisites
 
 1.  **Google Cloud Project**: Create a project in the [Google Cloud Console](https://console.cloud.google.com/).
 2.  **Google Cloud SDK**: Install the `gcloud` CLI on your local machine.
+    - **Windows Installer**: [Download the Google Cloud CLI Installer](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe)
+    - **Setup**: Run the installer, accept the defaults, and ensure "Start Google Cloud CLI Shell" and "Run gcloud init" are checked at the end.
 3.  **Docker**: Ensure Docker is installed and running.
 4.  **Gemini API Key**: Obtain an API key from [Google AI Studio](https://aistudio.google.com/apikey).
 
