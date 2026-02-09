@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,6 +66,31 @@
             padding-bottom: 0.5rem;
         }
 
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .user-guide-content a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .user-guide-content a:hover {
+            text-decoration: underline;
+        }
+
         ul {
             padding-left: 1.5rem;
         }
@@ -123,18 +149,23 @@
                 border-radius: 0;
                 padding: 20px;
             }
+
             .feature-list {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>📝 Gemini Subtitle Generator & Reviewer</h1>
-        <a href="https://transcript-reviewer-543444238950.us-central1.run.app" class="live-link">Open Live Application</a>
+        <a href="https://transcript-reviewer-543444238950.us-central1.run.app" class="live-link">Open Live
+            Application</a>
 
-        <p>A powerful, context-aware subtitle generation and cleaning tool. It combines industry-standard transcription with the intelligent Google Gemini 3 LLM-based review system to capture names, technical jargon, and grammar that standard tools miss.</p>
+        <p>A powerful, context-aware subtitle generation and cleaning tool. It combines industry-standard transcription
+            with the intelligent Google Gemini 3 LLM-based review system to capture names, technical jargon, and grammar
+            that standard tools miss.</p>
 
         <h2>🚀 Features</h2>
         <div class="feature-list">
@@ -156,30 +187,99 @@
             </div>
         </div>
 
-        <h2>📚 Documentation</h2>
-        <ul>
-            <li><strong>User Guide</strong>: A complete walkthrough of the interface.</li>
-            <li><strong>AI & Context Features</strong>: Learn how to get perfect results.</li>
-            <li><strong>Deployment Guide</strong>: Hosting on Google Cloud Run.</li>
-        </ul>
-
-        <h2>🛠️ Quick Start</h2>
-        <ol>
-            <li><strong>Upload</strong>: Drag & drop your MP3/MP4 file and provide a context description.</li>
-            <li><strong>Review</strong>: Use the interface to accept AI suggestions or make manual edits.</li>
-            <li><strong>Export</strong>: Download your finished <code>.srt</code> file.</li>
-        </ol>
-
-        <h2>Tech Stack</h2>
+        <h2>🛠️ Tech Stack</h2>
         <ul>
             <li><strong>Frontend</strong>: React, TanStack Query, ShadCN UI, Tailwind CSS.</li>
             <li><strong>Backend</strong>: Node.js (Express).</li>
             <li><strong>AI/ML</strong>: Google Gemini 3 API.</li>
         </ul>
 
+        <h2>📚 User Guide</h2>
+        <div class="user-guide-content">
+            <p>This guide walks you through the core workflow of the MV Subtitle Generator & Reviewer.</p>
+
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#uploading">Uploading Your Media</a></li>
+                <li><a href="#reviewing">Reviewing Subtitles</a></li>
+                <li><a href="#media-player">Using the Media Player</a></li>
+                <li><a href="#fixing-issues">Fixing Issues & Anomalies</a></li>
+                <li><a href="#manual-editing">Manual Editing</a></li>
+                <li><a href="#exporting">Exporting</a></li>
+            </ul>
+
+            <h3 id="getting-started">1. Getting Started</h3>
+            <p>When you first open the application, you will be greeted by the landing page. Click <strong>"Get
+                    Started"</strong> to begin your new project.</p>
+            <img src="./assets/landing_demo.webp" alt="Landing Page Demo">
+
+            <h3 id="uploading">2. Uploading Your Media</h3>
+            <p>The upload screen allows you to drag and drop your file or select it from your computer.</p>
+            <ul>
+                <li><strong>Supported Formats</strong>: MP3 (Audio) and MP4 (Video).</li>
+                <li><strong>Size Limit</strong>: Up to 25 MB.</li>
+            </ul>
+
+            <h4>The Power of Context</h4>
+            <p>One of the most powerful features of this application is the <strong>"Context"</strong> field. The AI
+                uses this to understand your audio better (e.g., knowing "date a" means "data" in a technical context).
+            </p>
+            <img src="./assets/upload_page.png" alt="Upload Page">
+            <p><strong>What to write:</strong></p>
+            <ul>
+                <li>Subject matter (e.g., "Podcast about machine learning")</li>
+                <li>Speaker names (e.g., "Interview with Dr. Sarah Smith")</li>
+                <li>Technical terms (e.g., "Discussing SQL and NoSQL databases")</li>
+            </ul>
+
+            <h3 id="reviewing">3. Reviewing Subtitles</h3>
+            <p>Once processing is complete, you will enter the Review Interface. This is your command center for
+                polishing your subtitles.</p>
+            <img src="./assets/review_demo.webp" alt="Full Review Interface Demo">
+            <p>The interface is divided into three main areas:</p>
+            <ol>
+                <li><strong>Anomaly Review (Left)</strong>: Highlights specific issues detected by the AI.</li>
+                <li><strong>Media Player (Center)</strong>: Plays your audio/video in sync with the text.</li>
+                <li><strong>SRT Preview (Right)</strong>: The full list of subtitle segments.</li>
+            </ol>
+
+            <h3 id="media-player">4. Using the Media Player</h3>
+            <p>The built-in media player allows you to watch or listen to your file while you review.</p>
+            <img src="./assets/media_player.png" alt="Media Playing">
+            <ul>
+                <li><strong>Deep Sync</strong>: Clicking any subtitle segment will <strong>jump the audio</strong> to
+                    exactly that point.</li>
+                <li><strong>Auto-Scroll</strong>: As the audio plays, the active segment is highlighted.</li>
+                <li><strong>Auto-Pause</strong>: The player pauses automatically when you start editing.</li>
+            </ul>
+
+            <h3 id="fixing-issues">5. Fixing Issues & Anomalies</h3>
+            <p>The AI scans your text for potential errors like grammar mistakes or homophones.</p>
+            <img src="./assets/anomaly_review.png" alt="Anomaly Correction">
+            <ol>
+                <li>Review the flagged text and the AI's explanation.</li>
+                <li>Use the <strong>Suggested Correction</strong> to fix it instantly.</li>
+                <li><strong>Batch Corrections</strong>: Fix the same naming or term error across the whole file at once.
+                </li>
+            </ol>
+
+            <h3 id="manual-editing">6. Manual Editing</h3>
+            <p>You can edit <strong>any</strong> segment at any time. Hover over a segment and click the <strong>Pencil
+                    icon</strong>.</p>
+            <img src="./assets/inline_editing.png" alt="Inline Editing">
+
+            <h3 id="exporting">7. Exporting</h3>
+            <ol>
+                <li>Click the <strong>Export SRT</strong> button in the sidebar.</li>
+                <li>Your clean, synced <code>.srt</code> file will download immediately.</li>
+            </ol>
+        </div>
+
         <div class="footer">
             &copy; 2026 Gemini Subtitle Reviewer. Powered by Google Gemini.
         </div>
     </div>
 </body>
+
 </html>
